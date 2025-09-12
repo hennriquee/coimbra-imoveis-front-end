@@ -1,0 +1,80 @@
+.login__main {
+  padding-top: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(to top, transparent, #000);
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 0.8rem;
+
+  & input {
+    width: 20rem;
+    padding: 0.5rem;
+    border-radius: 9999px;
+  }
+}
+
+.login__main h1 {
+  cursor: default;
+  font-weight: 400;
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 1rem 3rem;
+}
+
+.login__text {
+  font-weight: 350;
+  font-size: 0.9rem;
+}
+
+.login__form button {
+  border-radius: 99999px;
+  border: 0;
+  margin: auto;
+  padding: 0.5rem 1.5rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.login__form button:hover {
+  opacity: 0.9;
+}
+
+.return__link {
+  cursor: pointer;
+  text-align: center;
+  color: #555555;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  margin: auto;
+  padding: 0.2rem 0.6rem;
+}
+
+.password__input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.fa__eye {
+  cursor: pointer;
+  color: #555555;
+}

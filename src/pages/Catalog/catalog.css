@@ -1,0 +1,43 @@
+.catalog__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 6rem;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.loading__message {
+  font-size: 1rem;
+  font-weight: 400;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.imoveis {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.catalog__main h1 {
+  text-shadow: 0 0 1.3px #000;
+  font-weight: 400;
+  font-size: 2.5rem;
+}
+
+@media (min-width: 0px) {
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+}

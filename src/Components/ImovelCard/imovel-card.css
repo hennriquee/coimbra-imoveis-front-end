@@ -1,0 +1,75 @@
+.imovel__card {
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 12rem;
+  aspect-ratio: 3/4;
+  display: flex;
+  box-shadow: 0 0 10px #0000002f;
+  overflow: hidden;
+  flex-direction: column;
+  position: relative;
+}
+
+.imovel__card img {
+  width: 100%;
+}
+
+.imovel__card__img img {
+  object-position: center;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  object-fit: cover;
+  display: block;
+}
+
+.imovel__card__img {
+  flex: 1;
+  inset: 0;
+  overflow: hidden;
+}
+
+.price {
+  margin: 0.2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.learn__more__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  margin: auto;
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.learn__more__btn:hover {
+  color: #000;
+  background-color: inherit;
+  box-shadow: 0 0 10px #00000031;
+}
+
+.imovel__card__content {
+  flex: 1;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.imovel__card__state {
+  font-size: 0.8rem;
+}
+
+.imovel__card__category {
+  font-size: 1rem;
+  font-weight: 600;
+}
