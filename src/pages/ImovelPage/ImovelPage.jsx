@@ -3,10 +3,12 @@ import "./imovel-page.css";
 import { api } from "../../services/api";
 import { Link, useParams } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 
 const ImovelPage = () => {
   const { id } = useParams();
-  const [imovel, setImovel] = useState([]);
+  const [imovel, setImovel] = useState();
   const [imageIdx, setImageIdx] = useState(0);
 
   const getImovel = async () => {
@@ -23,7 +25,7 @@ const ImovelPage = () => {
 
   const copyID = () => {
     navigator.clipboard
-      .writeText(imovel.id)
+      .writeText(imovel?.id)
       .then(() => {
         toast.success("ID copiado!");
       })
@@ -36,15 +38,16 @@ const ImovelPage = () => {
     <div className="imovel__page__main">
       <Toaster />
       <p onClick={copyID} className="imovel__page__id">
-        ID: {imovel.id}
+        <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
       </p>
       <div className="imovel__images__container">
-        <div className="destaque__img">
-          <img
-            src={imovel?.images?.[imageIdx] || "/placeholder.jpg"}
-            alt="imagem"
-          />
-        </div>
+        {imovel ? (
+          <div className="destaque__img">
+            <img src={imovel?.images?.[imageIdx] || "/placeholder.jpg"} />
+          </div>
+        ) : (
+          <p className="loading__text">Carregando informações...</p>
+        )}
         <div className="tiny__images__container">
           {imovel?.images?.map((img, idx) => (
             <div key={idx} className="tiny__img">
@@ -61,32 +64,36 @@ const ImovelPage = () => {
 
       <div className="imovel__content__container">
         <h1>
-          {imovel.title}{" "}
+          {imovel?.title}
           {imovel?.category === "Apartamento"
             ? "🏢"
-            : imovel.category === "Casa"
+            : imovel?.category === "Casa"
             ? "🏠"
-            : "🌳"}
+            : imovel?.category === "Terreno"
+            ? "🌳"
+            : ""}
         </h1>
-        <p className="imovel__content__text">{imovel.text}</p>
-        <p className="imovel__content__price">{imovel.price}</p>
-        <div className="imovel__page__btns">
-          <Link
-            className="imovel__page__btn wpp__btn"
-            to={`https://wa.me/5534991821068?text=Olá,+tenho+interesse+no+imóvel+de+ID:+${imovel.id}`}
-            target="_blank"
-          >
-            <i className="bx bxl-whatsapp"></i>
-            <span>WhatsApp</span>
-          </Link>
+        <p className="imovel__content__text">{imovel?.text}</p>
+        <p className="imovel__content__price">{imovel?.price}</p>
+        {imovel && (
+          <div className="imovel__page__btns">
+            <Link
+              className="imovel__page__btn wpp__btn"
+              to={`https://wa.me/5534991821068?text=Olá,+tenho+interesse+no+imóvel+de+ID:+${imovel.id}`}
+              target="_blank"
+            >
+              <i className="bx bxl-whatsapp"></i>
+              <span>WhatsApp</span>
+            </Link>
 
-          <Link
-            className="imovel__page__btn email__btn"
-            to={"mailto:coimbraimoveisuberlandia@gmail.com"}
-          >
-            <i className="bx bx-envelope"></i>E-mail
-          </Link>
-        </div>
+            <Link
+              className="imovel__page__btn email__btn"
+              to={"mailto:coimbraimoveisuberlandia@gmail.com"}
+            >
+              <i className="bx bx-envelope"></i>E-mail
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
