@@ -14,6 +14,7 @@ const Header = () => {
 
   const menuHamburguer = useRef();
   const responsiveNav = useRef();
+
   const toggleMenu = () => {
     menuHamburguer.current.classList.toggle("change");
 
@@ -23,6 +24,33 @@ const Header = () => {
       responsiveNav.current.style.display = "none";
     }
   };
+
+  // Fecha ao clicar fora do menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const outClick =
+        responsiveNav.current &&
+        !responsiveNav.current.contains(event.target) &&
+        !menuHamburguer.current.contains(event.target);
+
+      if (menuHamburguer.current.classList.contains("change") && outClick) {
+        menuHamburguer.current.classList.remove("change");
+        responsiveNav.current.style.display = "none";
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  // Fecha ao clicar em qualquer link dentro do menu
+  const handleLinkClick = () => {
+    menuHamburguer.current.classList.remove("change");
+    responsiveNav.current.style.display = "none";
+  };
+
   return (
     <header>
       <Link className="logo" to="/login">
@@ -40,9 +68,15 @@ const Header = () => {
           </nav>
 
           <nav ref={responsiveNav} className="responsive__nav">
-            <Link to={"/"}>Início</Link>
-            <Link to={"/adm/cadastro"}>Cadastrar</Link>
-            <Link to={"/adm/edit"}>Editar</Link>
+            <Link to={"/"} onClick={handleLinkClick}>
+              Início
+            </Link>
+            <Link to={"/adm/cadastro"} onClick={handleLinkClick}>
+              Cadastrar
+            </Link>
+            <Link to={"/adm/edit"} onClick={handleLinkClick}>
+              Editar
+            </Link>
           </nav>
         </>
       ) : (
@@ -56,10 +90,18 @@ const Header = () => {
             </div>
           </nav>
           <nav ref={responsiveNav} className="responsive__nav">
-            <Link to={"/"}>Início</Link>
-            <Link to={"/catalogo"}>Imóveis</Link>
-            <Link to={"/contato"}>Contato</Link>
-            <Link to={"/sobre"}>Sobre</Link>
+            <Link to={"/"} onClick={handleLinkClick}>
+              Início
+            </Link>
+            <Link to={"/catalogo"} onClick={handleLinkClick}>
+              Imóveis
+            </Link>
+            <Link to={"/contato"} onClick={handleLinkClick}>
+              Contato
+            </Link>
+            <Link to={"/sobre"} onClick={handleLinkClick}>
+              Sobre
+            </Link>
           </nav>
         </>
       )}
