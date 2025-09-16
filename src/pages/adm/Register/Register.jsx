@@ -141,6 +141,7 @@ const Register = () => {
       formRef.current.reset();
       priceRef.current.value = "";
       setSelectedFiles([]);
+      window.location.reload();
     } catch (err) {
       console.error("Erro ao cadastrar imóvel:", err);
       // relança para o toast.promise capturar
@@ -172,102 +173,107 @@ const Register = () => {
   return (
     <section className="register__page">
       <Toaster />
-      <h1>Cadastro de Imóveis</h1>
-      <form ref={formRef} className="register__form" onSubmit={commitImovel}>
-        <div className="form__container-1">
-          <select
-            required
-            ref={categoryRef}
-            className="category__select"
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Categoria
-            </option>
-            <option value="Apartamento">Apartamento</option>
-            <option value="Casa">Casa</option>
-            <option value="Terreno">Terreno</option>
-          </select>
-          <select
-            required
-            onChange={(e) => getCities(e.target.value)}
-            ref={stateRef}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Estado
-            </option>
-            <option value="MG">Minas Gerais</option>
-            <option value="SP">São Paulo</option>
-          </select>
-          <select required ref={cityRef} defaultValue="">
-            <option value="" disabled>
-              Cidade
-            </option>
-            {cities.map((city) => (
-              <option key={city}>{city}</option>
-            ))}
-          </select>
-          <input
-            maxLength={30}
-            required
-            ref={titleRef}
-            type="text"
-            placeholder="Título"
-          />
-          <textarea
-            maxLength={520}
-            ref={textRef}
-            rows={5}
-            cols={50}
-            placeholder="Texto do anúncio"
-          />
-
-          <div className="price__input">
+      <div className="register__main">
+        <h1>Cadastro de Imóveis</h1>
+        <form ref={formRef} className="register__form" onSubmit={commitImovel}>
+          <div className="form__container-1">
+            <select
+              required
+              ref={categoryRef}
+              className="category__select"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Categoria
+              </option>
+              <option value="Apartamento">Apartamento</option>
+              <option value="Casa">Casa</option>
+              <option value="Terreno">Terreno</option>
+            </select>
+            <select
+              required
+              onChange={(e) => getCities(e.target.value)}
+              ref={stateRef}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Estado
+              </option>
+              <option value="MG">Minas Gerais</option>
+              <option value="SP">São Paulo</option>
+            </select>
+            <select required ref={cityRef} defaultValue="">
+              <option value="" disabled>
+                Cidade
+              </option>
+              {cities.map((city) => (
+                <option key={city}>{city}</option>
+              ))}
+            </select>
             <input
-              onChange={togglePriceInput}
-              className="price__input__check"
-              type="checkbox"
-            />
-            <input
-              disabled={priceDisabled}
-              ref={priceRef}
+              maxLength={30}
+              required
+              ref={titleRef}
               type="text"
-              placeholder="Preço (R$)"
-              value={price}
-              onChange={handlePriceChange}
+              placeholder="Título"
+            />
+            <textarea
+              maxLength={520}
+              ref={textRef}
+              rows={5}
+              cols={50}
+              placeholder="Texto do anúncio"
+            />
+            <div className="price__input">
+              <input
+                onChange={togglePriceInput}
+                className="price__input__check"
+                type="checkbox"
+              />
+              <input
+                disabled={priceDisabled}
+                ref={priceRef}
+                type="text"
+                placeholder="Preço (R$)"
+                value={price}
+                onChange={handlePriceChange}
+              />
+            </div>
+            <button type="submit" className="cad__btn">
+              Cadastrar
+            </button>
+          </div>
+          {/* Upload de imagens */}
+          <div className="form__container-2">
+            {selectedFiles.length > 0 && (
+              <div className="preview__container">
+                {selectedFiles.map((file, idx) => (
+                  <div key={idx} className="preview__item">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Preview ${idx}`}
+                    />
+                    <button
+                      type="button"
+                      className="remove__btn"
+                      onClick={() => handleRemove(idx)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <input
+              required
+              className="input__images"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
             />
           </div>
-          <button type="submit">Cadastrar</button>
-        </div>
-
-        {/* Upload de imagens */}
-        <div className="form__container-2">
-          {selectedFiles.length > 0 && (
-            <div className="preview__container">
-              {selectedFiles.map((file, idx) => (
-                <div key={idx} className="preview__item">
-                  <img src={URL.createObjectURL(file)} alt={`Preview ${idx}`} />
-                  <button
-                    type="button"
-                    className="remove__btn"
-                    onClick={() => handleRemove(idx)}
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          <input
-            required
-            className="input__images"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
-      </form>
+        </form>
+      </div>
     </section>
   );
 };

@@ -5,11 +5,11 @@ import MateusLuanaImg from "../../assets/images/mateuseluana.png";
 const About = () => {
   return (
     <section id="about" className="about">
-      <div className="about-container">
-        <div className="about-img">
+      <div className="about__container">
+        <div className="about__img">
           <img draggable="false" src={MateusLuanaImg} alt="" />
         </div>
-        <div className="about-content">
+        <div className="about__content">
           <h1>Sobre nós</h1>
           <p>
             Fundada em 2024 e localizada em Uberlândia, a

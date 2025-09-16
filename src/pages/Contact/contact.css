@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6rem 12%;
   min-height: 100vh;
   height: 100vh;
   background-image: linear-gradient(to top, #00000059, #00000059),
@@ -75,7 +74,7 @@
   padding: 0 20rem;
 }
 
-.contact-line-boxes {
+.contact__line__boxes {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -83,7 +82,7 @@
   margin-top: 0.8rem;
 }
 
-.contact-line-boxes > * {
+.contact__line__boxes > * {
   width: 100%;
   flex: 1;
 }
@@ -100,3 +99,34 @@
 .contact__box-title i {
   font-size: 1.5rem;
 }
+
+@media (min-width: 0px) {
+  .contact__page {
+    padding: 0 5%;
+    padding-top: 2rem;
+    & h1 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .contact__line__boxes {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+  .contact__line__boxes {
+    flex-direction: row;
+  }
+  .contact__page {
+    padding: 4.6rem 12%;
+    padding-top: 6rem;
+  }
+}
+/* /RESPONSIVE */

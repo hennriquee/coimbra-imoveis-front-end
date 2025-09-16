@@ -7,6 +7,11 @@
   min-height: 100vh;
 }
 
+.imoveis__box,
+.imoveis {
+  width: 100%;
+}
+
 .loading__message {
   font-size: 1rem;
   font-weight: 400;
@@ -19,6 +24,7 @@
 .imoveis {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-top: 1rem;
   position: relative;
@@ -30,14 +36,46 @@
   font-size: 2.5rem;
 }
 
+/* RESPONSIVE */
 @media (min-width: 0px) {
+  /* .filter-main {
+    flex-direction: column;
+    & select {
+    width: 100%;
+  }
+  } */
+
+  .imoveis {
+    justify-content: center;
+  }
 }
 
 @media (min-width: 576px) {
 }
 
 @media (min-width: 768px) {
+  /* .filter-main {
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    & select {
+    min-width: 20rem;
+}
+  } */
+
+  .catalog__main {
+    padding: 4rem 5rem;
+  }
+
+  .imoveis__box {
+    width: 15rem;
+  }
+  .imoveis {
+    justify-content: start;
+  }
 }
 
 @media (min-width: 992px) {
 }
+
+/* RESPONSIVE */

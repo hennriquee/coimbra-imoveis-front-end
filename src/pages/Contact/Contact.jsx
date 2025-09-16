@@ -19,7 +19,7 @@ const Contact = () => {
             </div>
             <p>coimbraimoveisuberlandia@gmail.com</p>
           </Link>
-          <div className="contact-line-boxes">
+          <div className="contact__line__boxes">
             <Link
               target="_blank"
               className="contact__box instagram-contact__box"
