@@ -155,7 +155,7 @@
     top: 6rem;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 
     width: 100%;
     text-align: center;
@@ -194,6 +194,11 @@
     text-align: justify;
     margin-top: -1.4rem;
   }
+
+  .tiny__img {
+    width: 4rem;
+    height: 3rem;
+  }
 }
 
 @media (min-width: 576px) {
@@ -202,6 +207,7 @@
   }
   .imovel__page__main {
     padding: 6rem 5rem;
+    padding-top: 9rem;
   }
   .wpp__btn {
     gap: 0.6rem;
@@ -218,8 +224,11 @@
     gap: 3rem;
     align-items: start;
   }
+  .tiny__img {
+    width: 5rem;
+    height: 3.6rem;
+  }
 }
-
 @media (min-width: 992px) {
   .imovel__page__main {
     padding-top: 6rem;
