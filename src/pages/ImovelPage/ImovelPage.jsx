@@ -35,7 +35,7 @@ const ImovelPage = () => {
   };
 
   return (
-    <div className="imovel__page__main">
+    <section className="imovel__page__main">
       <Toaster />
       <p onClick={copyID} className="imovel__page__id">
         <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
@@ -63,7 +63,7 @@ const ImovelPage = () => {
       </div>
 
       <div className="imovel__content__container">
-        <h1>
+        <h1 className="imovel__title">
           {imovel?.title}
           {imovel?.category === "Apartamento"
             ? "🏢"
@@ -86,6 +86,8 @@ const ImovelPage = () => {
               <span>WhatsApp</span>
             </Link>
 
+            <p className="or__btn">ou</p>
+
             <Link
               className="imovel__page__btn email__btn"
               to={"mailto:coimbraimoveisuberlandia@gmail.com"}
@@ -95,7 +97,7 @@ const ImovelPage = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

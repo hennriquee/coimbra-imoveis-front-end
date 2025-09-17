@@ -211,14 +211,14 @@ const Register = () => {
               ))}
             </select>
             <input
-              maxLength={30}
+              maxLength={22}
               required
               ref={titleRef}
               type="text"
               placeholder="Título"
             />
             <textarea
-              maxLength={520}
+              maxLength={500}
               ref={textRef}
               rows={5}
               cols={50}
