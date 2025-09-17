@@ -152,6 +152,7 @@
 
   .imovel__title {
     position: absolute;
+    text-transform: capitalize;
     top: 6rem;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -249,7 +250,6 @@
     transform: none;
     width: auto;
     text-align: left;
-
     font-size: 2.3rem;
   }
   .tiny__images__container {

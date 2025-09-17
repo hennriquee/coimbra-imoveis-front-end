@@ -6,6 +6,7 @@ import "./edit-imovel-page.css";
 import { Toaster, toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import ReturnBtn from "../../Components/ReturnBtn/ReturnBtn";
 
 const EditImovelPage = () => {
   const { id } = useParams();
@@ -64,6 +65,7 @@ const EditImovelPage = () => {
   return (
     <div className="edit__container__main">
       <Toaster />
+      <ReturnBtn />
       <div className="edit__container">
         <p onClick={copyID} className="edit__container__id">
           <FontAwesomeIcon icon={faCopy} /> ID: {id}

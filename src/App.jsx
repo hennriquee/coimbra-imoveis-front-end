@@ -13,6 +13,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import EditImovelPage from "./pages/EditImovelPage/EditImovelPage";
 import { api } from "./services/api";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function App() {
   // Ping no servidor
@@ -30,6 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<About />} />

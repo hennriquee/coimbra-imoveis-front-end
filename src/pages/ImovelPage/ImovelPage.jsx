@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import ReturnBtn from "../../Components/ReturnBtn/ReturnBtn";
 
 const ImovelPage = () => {
   const { id } = useParams();
@@ -37,6 +38,7 @@ const ImovelPage = () => {
   return (
     <section className="imovel__page__main">
       <Toaster />
+      <ReturnBtn />
       <p onClick={copyID} className="imovel__page__id">
         <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
       </p>
