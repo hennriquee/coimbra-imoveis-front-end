@@ -61,7 +61,6 @@
   line-height: 1.7rem;
   text-indent: 30px;
   min-height: 12rem;
-  text-transform: capitalize;
   font-size: 1rem;
 }
 
@@ -152,7 +151,6 @@
 
   .imovel__title {
     position: absolute;
-    text-transform: capitalize;
     top: 4.8rem;
     left: 50%;
     transform: translate(-50%, -50%);
