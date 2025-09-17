@@ -43,8 +43,8 @@ const EditImovelPage = () => {
 
     await toast.promise(handleEdit(), {
       loading: "Alterando...",
-      success: <b>Alterações salvas!</b>,
-      error: <b>Erro ao salvar.</b>,
+      success: <p>Alterações salvas!</p>,
+      error: <p>Erro ao salvar.</p>,
     });
 
     navigate("/adm/edit");

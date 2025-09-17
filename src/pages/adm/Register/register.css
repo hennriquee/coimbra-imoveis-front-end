@@ -166,3 +166,90 @@ textarea {
   border-radius: 8px;
   border: 1px solid #acacac;
 }
+
+/* RESPONSIVE */
+
+@media (min-width: 0px) {
+  .register__page {
+    padding: 0;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .register__form {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .cad__btn {
+    position: absolute;
+    bottom: 0;
+  }
+  .input__images {
+    width: 100%;
+  }
+
+  .form__container-2 {
+    margin-bottom: 3rem;
+  }
+
+  .preview__container {
+    margin-top: 2rem;
+    min-height: 4rem;
+    position: relative;
+    flex-wrap: nowrap;
+  }
+
+  .preview__item {
+    & img {
+      width: 4.5rem;
+      height: 4rem;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+  .register__page {
+    padding: 0 10rem;
+    padding-top: 3rem;
+    padding-bottom: 0;
+  }
+
+  .register__form {
+    flex-direction: row;
+    position: static;
+  }
+
+  .cad__btn {
+    position: static;
+    bottom: auto;
+  }
+
+  .input__images {
+    width: 510px;
+  }
+
+  .form__container-2 {
+    margin-bottom: 0;
+  }
+
+  .preview__container {
+    margin-top: 0;
+    min-height: auto;
+    position: static;
+    flex-wrap: wrap;
+  }
+
+  .preview__item img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* RESPONSIVE */

@@ -90,7 +90,7 @@ const Edit = () => {
               <div className="edit__card_btns">
                 <Link
                   to={`/adm/edit/${selectedImovel.id}`}
-                  className="learn__more__btn"
+                  className="black__btn edit__card__btn"
                 >
                   Editar
                 </Link>
@@ -119,7 +119,7 @@ const Edit = () => {
                   <div className="edit__card_btns">
                     <Link
                       to={`/adm/edit/${imovel.id}`}
-                      className="learn__more__btn"
+                      className="edit__card__btn black__btn"
                     >
                       Editar
                     </Link>

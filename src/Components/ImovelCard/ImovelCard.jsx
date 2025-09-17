@@ -6,8 +6,6 @@ import "../../pages/Catalog/catalog.css";
 const ImovelCard = ({ id, category, title, price, images, city, state }) => {
   const { pathname } = useLocation();
 
-  const adm = pathname.includes("/adm");
-
   return (
     <div className="imovel__card">
       <div className="imovel__card__img">
@@ -20,15 +18,12 @@ const ImovelCard = ({ id, category, title, price, images, city, state }) => {
         <hr />
         <p className="price">{price}</p>
 
-        {adm ? (
-          <Link to={`/adm/edit/imovel/${id}`} className="learn__more__btn">
-            Editar
-          </Link>
-        ) : (
-          <Link to={`/catalogo/imovel/${id}`} className="learn__more__btn">
-            Saiba mais
-          </Link>
-        )}
+        <Link
+          to={`/catalogo/imovel/${id}`}
+          className="learn__more__btn black__btn"
+        >
+          Saiba mais
+        </Link>
       </div>
     </div>
   );
