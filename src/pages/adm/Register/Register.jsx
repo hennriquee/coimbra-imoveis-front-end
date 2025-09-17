@@ -211,7 +211,7 @@ const Register = () => {
               ))}
             </select>
             <input
-              maxLength={22}
+              maxLength={19}
               required
               ref={titleRef}
               type="text"

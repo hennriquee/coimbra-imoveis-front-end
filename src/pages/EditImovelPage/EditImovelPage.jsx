@@ -78,7 +78,7 @@ const EditImovelPage = () => {
               ref={titleRef}
               defaultValue={imovel?.title}
               disabled={isLoading}
-              maxLength={22}
+              maxLength={19}
             />
           </div>
           <div className="edit__input__box">
