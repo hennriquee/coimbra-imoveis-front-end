@@ -64,7 +64,7 @@ const ImovelPage = () => {
 
       <div className="imovel__content__container">
         <h1 className="imovel__title">
-          {imovel?.title}
+          {imovel?.title}{" "}
           {imovel?.category === "Apartamento"
             ? "🏢"
             : imovel?.category === "Casa"

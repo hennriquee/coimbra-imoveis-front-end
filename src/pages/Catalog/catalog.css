@@ -7,7 +7,7 @@
   min-height: 100vh;
 }
 
-.imoveis__box,
+.imoveis__card,
 .imoveis {
   width: 100%;
 }
@@ -48,6 +48,17 @@
   .imoveis {
     justify-content: center;
   }
+
+  .imoveis__card {
+    width: 1rem;
+  }
+
+  .catalog__main {
+    padding: 5rem 4rem;
+    & h1 {
+      margin-bottom: 1rem;
+    }
+  }
 }
 
 @media (min-width: 576px) {
@@ -65,17 +76,20 @@
 
   .catalog__main {
     padding: 4rem 5rem;
+    & h1 {
+      margin-bottom: 2rem;
+    }
   }
 
-  .imoveis__box {
-    width: 15rem;
-  }
   .imoveis {
     justify-content: start;
   }
 }
 
 @media (min-width: 992px) {
+  .imovel__card {
+    width: 13rem;
+  }
 }
 
 /* RESPONSIVE */
