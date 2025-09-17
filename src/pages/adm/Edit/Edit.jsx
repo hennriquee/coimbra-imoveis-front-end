@@ -40,17 +40,18 @@ const Edit = () => {
   }
 
   async function deleteImovel(id) {
-    await api.delete(`/imoveis/${id}`);
+    return api.delete(`/imoveis/${id}`);
   }
 
   async function handleDelete(id) {
     if (window.confirm("Tem certeza que deseja excluir este item?")) {
       try {
-        toast.promise(deleteImovel(id), {
+        await toast.promise(deleteImovel(id), {
           loading: "Excluindo...",
           success: <p>Imóvel excluído.</p>,
           error: <p>Erro ao excluir imóvel.</p>,
         });
+
         window.location.reload();
       } catch (err) {
         toast.error(err.response?.data?.message || "Erro ao excluir imóvel.");
