@@ -13,8 +13,6 @@ const ImovelPage = () => {
   const [imageIdx, setImageIdx] = useState(0);
   const url = window.location.href;
 
-  console.log(url);
-
   const getImovel = async () => {
     setImovel((await api.get(`/imoveis/${id}`)).data);
   };

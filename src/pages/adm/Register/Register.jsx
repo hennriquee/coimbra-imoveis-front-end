@@ -215,7 +215,7 @@ const Register = () => {
               required
               ref={titleRef}
               type="text"
-              placeholder="Título"
+              placeholder="Título (Bairro)"
             />
             <textarea
               maxLength={500}

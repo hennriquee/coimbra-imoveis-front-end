@@ -226,17 +226,15 @@
   .imovel__page__main {
     flex-direction: row;
     padding: 8rem 5rem;
+    padding-top: 6rem;
     gap: 3rem;
     align-items: start;
+    max-height: 100vh;
   }
+
   .tiny__img {
     width: 5rem;
     height: 3.6rem;
-  }
-}
-@media (min-width: 992px) {
-  .imovel__page__main {
-    padding-top: 6rem;
   }
 
   .imovel__images__container {
@@ -256,6 +254,7 @@
     text-align: left;
     font-size: 2.3rem;
   }
+
   .tiny__images__container {
     justify-content: start;
   }
