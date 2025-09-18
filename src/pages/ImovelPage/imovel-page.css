@@ -37,8 +37,6 @@
   cursor: pointer;
   width: 5rem;
   height: 3.6rem;
-  box-shadow: 0 0 5px #0000003f;
-  transition: all 0.4s ease;
 
   & img {
     object-position: center;
@@ -48,9 +46,9 @@
     object-fit: cover;
     display: block;
     border-radius: 10px;
-    box-shadow: 0 0 10px #00000031;
+    box-shadow: 0 0 5px #0000003f;
+    transition: all 0.1s ease;
   }
-
   & :hover {
     transform: scale(1.03);
   }
