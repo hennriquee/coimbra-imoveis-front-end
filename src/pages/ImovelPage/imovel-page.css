@@ -37,6 +37,8 @@
   cursor: pointer;
   width: 5rem;
   height: 3.6rem;
+  box-shadow: 0 0 5px #0000003f;
+  transition: all 0.4s ease;
 
   & img {
     object-position: center;
@@ -47,6 +49,10 @@
     display: block;
     border-radius: 10px;
     box-shadow: 0 0 10px #00000031;
+  }
+
+  & :hover {
+    transform: scale(1.03);
   }
 }
 
@@ -125,6 +131,7 @@
   display: flex;
   align-items: bottom;
   margin-bottom: 0.5rem;
+  box-shadow: 0 0 10px #0000003f;
 }
 
 .imovel__page__id {

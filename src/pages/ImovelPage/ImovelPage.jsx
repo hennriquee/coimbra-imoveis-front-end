@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./imovel-page.css";
 import { api } from "../../services/api";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
@@ -11,6 +11,9 @@ const ImovelPage = () => {
   const { id } = useParams();
   const [imovel, setImovel] = useState();
   const [imageIdx, setImageIdx] = useState(0);
+  const url = window.location.href;
+
+  console.log(url);
 
   const getImovel = async () => {
     setImovel((await api.get(`/imoveis/${id}`)).data);
@@ -81,7 +84,7 @@ const ImovelPage = () => {
           <div className="imovel__page__btns">
             <Link
               className="imovel__page__btn wpp__btn"
-              to={`https://wa.me/5534991821068?text=Olá,+tenho+interesse+no+imóvel+de+ID:+${imovel.id}`}
+              to={`https://wa.me/5534991821068?text=Olá,+tenho+interesse+neste+imóvel:%0A${url}`}
               target="_blank"
             >
               <i className="bx bxl-whatsapp"></i>
@@ -92,7 +95,9 @@ const ImovelPage = () => {
 
             <Link
               className="imovel__page__btn email__btn"
-              to={"mailto:coimbraimoveisuberlandia@gmail.com"}
+              to={
+                "mailto:coimbraimoveisuberlandia@gmail.com?subject=Interesse%20em%20imóvel&body=Olá,%20tenho%20interesse%20neste%20imóvel:%0A${url}"
+              }
             >
               <i className="bx bx-envelope"></i>E-mail
             </Link>
