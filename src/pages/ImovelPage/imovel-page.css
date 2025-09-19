@@ -54,6 +54,10 @@
   }
 }
 
+.tiny__img.active {
+  transform: scale(1.03);
+}
+
 .imovel__content__container {
   height: 100%;
 }

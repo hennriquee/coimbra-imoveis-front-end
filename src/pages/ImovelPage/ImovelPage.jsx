@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./imovel-page.css";
 import { api } from "../../services/api";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
@@ -11,6 +11,7 @@ const ImovelPage = () => {
   const { id } = useParams();
   const [imovel, setImovel] = useState();
   const [imageIdx, setImageIdx] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
   const url = window.location.href;
 
   const getImovel = async () => {
@@ -22,7 +23,11 @@ const ImovelPage = () => {
   }, []);
 
   const changeImage = (idx) => {
-    setImageIdx(idx);
+    if (!imovel?.images) return;
+    const total = imovel.images.length;
+    // loop infinito
+    const newIndex = (idx + total) % total;
+    setImageIdx(newIndex);
   };
 
   const copyID = () => {
@@ -36,6 +41,28 @@ const ImovelPage = () => {
       });
   };
 
+  // Funções de swipe de imagem
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStart) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+
+    if (diff > 50) {
+      // arrastou para a esquerda → próxima imagem
+      changeImage(imageIdx + 1);
+    } else if (diff < -50) {
+      // arrastou para a direita → imagem anterior
+      changeImage(imageIdx - 1);
+    }
+
+    setTouchStart(null);
+  };
+  // Funções de swipe de imagem
+
   return (
     <section className="imovel__page__main">
       <Toaster />
@@ -43,7 +70,11 @@ const ImovelPage = () => {
       <p onClick={copyID} className="imovel__page__id">
         <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
       </p>
-      <div className="imovel__images__container">
+      <div
+        className="imovel__images__container"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {imovel ? (
           <div className="destaque__img">
             <img src={imovel?.images?.[imageIdx] || "/placeholder.jpg"} />
@@ -53,10 +84,12 @@ const ImovelPage = () => {
         )}
         <div className="tiny__images__container">
           {imovel?.images?.map((img, idx) => (
-            <div key={idx} className="tiny__img">
+            <div
+              key={idx}
+              className={`tiny__img ${idx === imageIdx ? "active" : ""}`}
+            >
               <img
                 onClick={() => changeImage(idx)}
-                key={idx}
                 src={img}
                 alt={`Imagem ${idx + 1}`}
               />
@@ -93,9 +126,7 @@ const ImovelPage = () => {
 
             <Link
               className="imovel__page__btn email__btn"
-              to={
-                "mailto:coimbraimoveisuberlandia@gmail.com?subject=Interesse%20em%20imóvel&body=Olá,%20tenho%20interesse%20neste%20imóvel:%0A${url}"
-              }
+              to={`mailto:coimbraimoveisuberlandia@gmail.com?subject=Interesse%20em%20imóvel&body=Olá,%20tenho%20interesse%20neste%20imóvel:%0A${url}`}
             >
               <i className="bx bx-envelope"></i>E-mail
             </Link>
