@@ -27,7 +27,8 @@
 .edit__imovel__cards {
   margin-top: 2rem;
   display: flex;
-  gap: 1.5rem;
+  gap: 3rem;
+  margin-bottom: 3rem;
 }
 
 .edit__search__btn {
