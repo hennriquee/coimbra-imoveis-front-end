@@ -27,12 +27,15 @@ const EditImovelPage = () => {
     getImovel();
   }, [id]);
 
+  const removedImages = [];
+
   async function handleEdit() {
     try {
       await api.put(`/edit/${imovel.id}`, {
         title: titleRef.current.value,
         text: textRef.current.value,
         price: priceRef.current.value,
+        removedImages,
       });
     } catch (err) {
       throw err.response?.data?.message || "Erro ao salvar.";
@@ -60,6 +63,16 @@ const EditImovelPage = () => {
       .catch((err) => {
         toast.error("Erro ao copiar: ", err);
       });
+  };
+
+  const handleRemoveImg = (e) => {
+    const removedImg = e.currentTarget.parentNode.querySelector("img");
+
+    removedImg.parentNode.style.display = "none";
+
+    removedImages.push(removedImg.src);
+
+    console.log(removedImages);
   };
 
   return (
@@ -101,6 +114,18 @@ const EditImovelPage = () => {
               defaultValue={imovel?.price}
               disabled={isLoading}
             />
+          </div>
+          <div className="preview__container">
+            {imovel?.images.map((img, imgId) => {
+              return (
+                <div className="preview__item">
+                  <img src={img} key={imgId} />
+                  <div onClick={handleRemoveImg} className="remove__img__btn">
+                    ×
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <div className="edit__container__btns">
             <Link className="edit__container__btn cancel__btn" to={"/adm/edit"}>

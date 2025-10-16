@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./footer.css";
 import {
   coimbraInstagramLink,
@@ -9,7 +9,14 @@ import {
 } from "../../assets/links";
 
 const Footer = () => {
-  return (
+  const { pathname } = useLocation();
+
+  // casos em que o footer não será mostrado
+  const isAdm = pathname.includes("adm") || pathname.includes("login");
+
+  return isAdm ? (
+    <></>
+  ) : (
     <footer>
       <div className="footer-container">
         <div className="footer-title">

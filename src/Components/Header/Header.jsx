@@ -6,12 +6,6 @@ import { Link, useLocation } from "react-router-dom";
 const Header = () => {
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (!pathname.includes("/adm")) {
-      sessionStorage.removeItem("admLogged");
-    }
-  }, [pathname]);
-
   const menuHamburguer = useRef();
   const responsiveNav = useRef();
 
@@ -53,7 +47,7 @@ const Header = () => {
 
   return (
     <header>
-      <Link className="logo" to="/login">
+      <Link className="logo" to="/adm/cadastro">
         <img draggable="false" src={LogoImg} alt="logo" />
       </Link>
 
