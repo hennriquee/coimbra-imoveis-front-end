@@ -111,3 +111,25 @@
   border-radius: 50%;
   background-color: rgba(73, 73, 73, 0.842);
 }
+
+/*  RESPONSIVE */
+
+@media (min-width: 0px) {
+  .preview__item img {
+    width: 80px;
+    height: 60px;
+  }
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+  .preview__item img {
+    width: 100px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 992px) {
+}
