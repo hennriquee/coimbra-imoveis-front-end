@@ -78,7 +78,9 @@
   }
 
   .edit__card__btn {
-    margin-top: 6%;
+    margin-top: 12%;
+    width: 6.5rem;
+    height: 2.5rem;
   }
 }
 
@@ -93,6 +95,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .edit__card__btn {
+    margin-top: 3%;
   }
 }
 

@@ -36,6 +36,18 @@ const Login = () => {
       passwordRef.current.value = "";
 
       navigate("/adm/cadastro");
+
+      toast.success("Modo Administrador.", {
+        style: {
+          border: "1px solid #0063F7",
+          padding: "16px",
+          color: "#0063F7",
+        },
+        iconTheme: {
+          primary: "#0063F7",
+          secondary: "#FFFAEE",
+        },
+      });
     } catch (err) {
       toast.error(err.response?.data?.error || "Erro no login");
     }

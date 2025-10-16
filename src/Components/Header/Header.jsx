@@ -1,10 +1,17 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./header.css";
 import LogoImg from "../../assets/images/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const { pathname } = useLocation();
+  const [bgColor, setBgColor] = useState("#000");
+
+  const isAdm = pathname.includes("adm");
+
+  useEffect(() => {
+    setBgColor(isAdm ? "#0063F7" : " #000");
+  }, [pathname]);
 
   const menuHamburguer = useRef();
   const responsiveNav = useRef();
@@ -46,8 +53,8 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Link className="logo" to="/adm/cadastro">
+    <header style={{ backgroundColor: bgColor }}>
+      <Link className="logo" to={isAdm ? "/" : "/adm/cadastro"}>
         <img draggable="false" src={LogoImg} alt="logo" />
       </Link>
 
