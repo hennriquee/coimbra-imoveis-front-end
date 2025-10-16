@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
-import { useState, useRef, useEffect } from "react";
 import "./edit-imovel-page.css";
 import { Toaster, toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,15 +10,21 @@ import ReturnBtn from "../../Components/ReturnBtn/ReturnBtn";
 const EditImovelPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [imovel, setImovel] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [removedImages, setRemovedImages] = useState([]);
+  const [maxImages, setMaxImages] = useState(false);
 
   const titleRef = useRef();
   const textRef = useRef();
   const priceRef = useRef();
 
+  // Busca do imóvel
   async function getImovel() {
-    setImovel((await api.get(`/imoveis/${id}`)).data);
+    const data = (await api.get(`/imoveis/${id}`)).data;
+    setImovel(data);
     setIsLoading(false);
   }
 
@@ -27,18 +32,60 @@ const EditImovelPage = () => {
     getImovel();
   }, [id]);
 
-  const removedImages = [];
+  // Atualiza controle de máximo de imagens
+  useEffect(() => {
+    const totalImages = (imovel?.images?.length || 0) + selectedFiles.length;
+    setMaxImages(totalImages >= 4);
+  }, [imovel?.images, selectedFiles]);
 
+  // Upload Cloudinary
+  const handleUploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "unsigned_imoveis"); // preset do Cloudinary
+
+    try {
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/diyr0pljs/image/upload",
+        { method: "POST", body: formData }
+      );
+      const data = await res.json();
+
+      if (data.secure_url) {
+        const optimizedUrl = data.secure_url.replace(
+          "/upload/",
+          "/upload/f_auto,q_auto,w_1200/"
+        );
+        return optimizedUrl;
+      }
+
+      return null;
+    } catch (err) {
+      console.error("Erro no upload:", err);
+      return null;
+    }
+  };
+
+  // Envia alterações
   async function handleEdit() {
     try {
+      let urls = [];
+      if (selectedFiles.length > 0) {
+        urls = await Promise.all(
+          selectedFiles.map((file) => handleUploadToCloudinary(file))
+        );
+      }
+
       await api.put(`/edit/${imovel.id}`, {
         title: titleRef.current.value,
         text: textRef.current.value,
         price: priceRef.current.value,
         removedImages,
+        addedImages: urls,
       });
     } catch (err) {
-      throw err.response?.data?.message || "Erro ao salvar.";
+      console.error("Erro no handleEdit:", err);
+      throw err.response?.data?.message || err.message || "Erro ao salvar.";
     }
   }
 
@@ -57,23 +104,53 @@ const EditImovelPage = () => {
   const copyID = () => {
     navigator.clipboard
       .writeText(imovel?.id)
-      .then(() => {
-        toast.success("ID copiado!");
-      })
-      .catch((err) => {
-        toast.error("Erro ao copiar: ", err);
-      });
+      .then(() => toast.success("ID copiado!"))
+      .catch((err) => toast.error("Erro ao copiar: ", err));
   };
 
-  const handleRemoveImg = (e) => {
-    const removedImg = e.currentTarget.parentNode.querySelector("img");
-
-    removedImg.parentNode.style.display = "none";
-
-    removedImages.push(removedImg.src);
-
-    console.log(removedImages);
+  // Remove imagem (antiga ou nova)
+  const handleRemoveImg = (imgObj, index) => {
+    if (imgObj.isNew) {
+      const indexInSelected = index - (imovel?.images?.length || 0);
+      setSelectedFiles((prev) => prev.filter((_, i) => i !== indexInSelected));
+    } else {
+      setRemovedImages((prev) => [...prev, imgObj.url]);
+      setImovel((prev) => ({
+        ...prev,
+        images: prev.images.filter((img) => img !== imgObj.url),
+      }));
+    }
   };
+
+  // Adiciona novos arquivos
+  const handleFileAdd = (e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+
+    setSelectedFiles((prev) => {
+      const combined = [...prev, ...files];
+      if ((imovel?.images?.length || 0) + combined.length > 4) {
+        return combined.slice(0, 4 - (imovel?.images?.length || 0));
+      }
+      return combined;
+    });
+  };
+
+  // Previews combinados
+  const existingImages =
+    imovel?.images?.map((img) => ({ url: img, isNew: false })) || [];
+  const newPreviews = selectedFiles.map((file) => ({
+    url: URL.createObjectURL(file),
+    isNew: true,
+  }));
+  const allImages = [...existingImages, ...newPreviews];
+
+  // Limpar URLs temporárias
+  useEffect(() => {
+    return () => {
+      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
+    };
+  }, [selectedFiles]);
 
   return (
     <div className="edit__container__main">
@@ -107,7 +184,6 @@ const EditImovelPage = () => {
           </div>
           <div className="edit__input__box">
             <label htmlFor="price">Preço:</label>
-
             <input
               name="price"
               ref={priceRef}
@@ -115,18 +191,31 @@ const EditImovelPage = () => {
               disabled={isLoading}
             />
           </div>
-          <div className="preview__container">
-            {imovel?.images.map((img, imgId) => {
-              return (
-                <div className="preview__item">
-                  <img src={img} key={imgId} />
-                  <div onClick={handleRemoveImg} className="remove__img__btn">
+
+          {allImages.length > 0 && (
+            <div className="preview__container">
+              {allImages.map((imgObj, index) => (
+                <div key={index} className="preview__item">
+                  <img src={imgObj.url} alt="" />
+                  <div
+                    onClick={() => handleRemoveImg(imgObj, index)}
+                    className="remove__img__btn"
+                  >
                     ×
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
+
+          <input
+            type="file"
+            accept="image/*"
+            disabled={maxImages}
+            multiple
+            onChange={handleFileAdd}
+          />
+
           <div className="edit__container__btns">
             <Link className="edit__container__btn cancel__btn" to={"/adm/edit"}>
               Cancelar
