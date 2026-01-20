@@ -36,6 +36,15 @@
   font-size: 2.5rem;
 }
 
+.catalog__input__busca {
+  max-width: 25rem;
+  width: 100%;
+}
+
+.catalog__fallback {
+  margin-top: 5rem;
+}
+
 /* RESPONSIVE */
 @media (min-width: 0px) {
   /* .filter-main {

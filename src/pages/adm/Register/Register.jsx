@@ -29,7 +29,7 @@ const Register = () => {
       {
         style: "currency",
         currency: "BRL",
-      }
+      },
     );
 
     setPrice(formattedValue);
@@ -41,7 +41,7 @@ const Register = () => {
     if (uf !== "") {
       try {
         const response = await fetch(
-          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`,
         );
         const data = await response.json();
         setCities(data.map((city) => city.nome));
@@ -63,7 +63,7 @@ const Register = () => {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
       const data = await res.json();
 
@@ -71,7 +71,7 @@ const Register = () => {
         // 👉 adiciona parâmetros de otimização direto na URL
         const optimizedUrl = data.secure_url.replace(
           "/upload/",
-          "/upload/f_auto,q_auto,w_1200/"
+          "/upload/f_auto,q_auto,w_1200/",
         );
         return optimizedUrl;
       }
@@ -110,7 +110,7 @@ const Register = () => {
       let urls = [];
       if (selectedFiles.length > 0) {
         urls = await Promise.all(
-          selectedFiles.map((file) => handleUploadToCloudinary(file))
+          selectedFiles.map((file) => handleUploadToCloudinary(file)),
         );
       }
 
@@ -158,7 +158,7 @@ const Register = () => {
         loading: "Cadastrando...",
         success: <p>Cadastro realizado!</p>,
         error: <p>Erro ao cadastrar imóvel.</p>,
-      }
+      },
     );
   }
 

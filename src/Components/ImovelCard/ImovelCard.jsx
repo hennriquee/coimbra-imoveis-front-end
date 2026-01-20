@@ -14,6 +14,7 @@ const ImovelCard = ({ id, category, title, price, images, city, state }) => {
 
       <div className="imovel__card__content">
         <h5 className="imovel__card__category">{category}</h5>
+        <p className="imovel__card__title">{`${title}`}</p>
         <p className="imovel__card__state">{`${city}(${state})`}</p>
         <hr />
         <p className="price">{price}</p>

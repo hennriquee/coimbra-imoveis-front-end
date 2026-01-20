@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./login.css";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../services/api";
@@ -28,9 +28,7 @@ const Login = () => {
         password: passwordRef.current.value,
       });
 
-      const token = res.data.token;
-
-      sessionStorage.setItem("admLogged", token);
+      sessionStorage.setItem("admLogged", res.data.token);
 
       emailRef.current.value = "";
       passwordRef.current.value = "";

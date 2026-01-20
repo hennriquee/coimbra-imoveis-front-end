@@ -32,6 +32,7 @@
   margin: 0.2rem;
   text-align: center;
   font-weight: 600;
+  margin-bottom: -0.3rem;
 }
 
 .black__btn {
@@ -61,12 +62,16 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-
-  gap: 0.05rem;
+  gap: 0.02rem;
 }
 
-.imovel__card__state {
+.imovel__card__state,
+.imovel__card__title {
   font-size: 0.8rem;
+}
+
+.imovel__card__title {
+  font-weight: 500;
 }
 
 .imovel__card__category {
