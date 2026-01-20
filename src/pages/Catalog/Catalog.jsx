@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../../services/api";
 import ImovelCard from "../../Components/ImovelCard/ImovelCard";
 import "./catalog.css";
@@ -7,6 +7,7 @@ const Catalog = () => {
   const [imoveis, setImoveis] = useState([]);
   const [loading, setLoading] = useState(true); // estado de carregamento
   const [busca, setBusca] = useState("");
+  const inputBuscaRef = useRef();
 
   async function getImoveis() {
     try {
@@ -36,14 +37,22 @@ const Catalog = () => {
   return (
     <section className="catalog__main">
       <h1>Catálogo</h1>
-      <input
-        className="catalog__input__busca"
-        type="text"
-        placeholder="Pesquisar"
-        value={busca}
-        onSubmit={(ev) => ev.preventDefault()}
-        onChange={(ev) => setBusca(ev.target.value)}
-      />
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          inputBuscaRef.current?.blur(); // fecha teclado no mobile
+        }}
+      >
+        <input
+          className="catalog__input__busca"
+          type="search"
+          placeholder="Pesquisar"
+          value={busca}
+          ref={inputBuscaRef}
+          onChange={(ev) => setBusca(ev.target.value)}
+        />
+      </form>
       {loading ? (
         <p className="loading__message">Carregando imóveis...</p> // mensagem enquanto busca
       ) : imoveis.length > 0 ? (
