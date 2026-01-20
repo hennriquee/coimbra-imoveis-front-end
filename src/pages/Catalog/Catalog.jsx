@@ -41,6 +41,7 @@ const Catalog = () => {
         type="text"
         placeholder="Pesquisar"
         value={busca}
+        onSubmit={(ev) => ev.preventDefault()}
         onChange={(ev) => setBusca(ev.target.value)}
       />
       {loading ? (

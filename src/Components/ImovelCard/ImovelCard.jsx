@@ -1,11 +1,9 @@
 import React from "react";
 import "./imovel-card.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../pages/Catalog/catalog.css";
 
 const ImovelCard = ({ id, category, title, price, images, city, state }) => {
-  const { pathname } = useLocation();
-
   return (
     <div className="imovel__card">
       <div className="imovel__card__img">
