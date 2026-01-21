@@ -27,16 +27,17 @@
 }
 
 .tiny__images__container {
-  height: 7rem;
+  height: 5rem;
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  overflow: auto;
 }
 
 .tiny__img {
   cursor: pointer;
-  width: 5rem;
-  height: 3.6rem;
+  min-width: 5rem;
+  max-height: 3.6rem;
 
   & img {
     object-position: center;
@@ -158,6 +159,10 @@
     gap: 0;
   }
 
+  .imovel__content__container {
+    width: 100%;
+  }
+
   .imovel__title {
     position: absolute;
     top: 4.8rem;
@@ -201,12 +206,15 @@
     text-align: justify;
     hyphens: auto;
     overflow-wrap: break-word;
-    margin-top: -1.4rem;
+    margin-top: 2rem;
   }
 
   .tiny__img {
     width: 4rem;
     height: 3rem;
+  }
+  .tiny__images__container {
+    height: 3.6rem;
   }
 }
 
@@ -261,6 +269,7 @@
 
   .tiny__images__container {
     justify-content: start;
+    height: 5.2rem;
   }
 
   .imovel__page__btns {

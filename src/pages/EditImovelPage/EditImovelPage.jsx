@@ -35,7 +35,7 @@ const EditImovelPage = () => {
   // Atualiza controle de máximo de imagens
   useEffect(() => {
     const totalImages = (imovel?.images?.length || 0) + selectedFiles.length;
-    setMaxImages(totalImages >= 4);
+    setMaxImages(totalImages >= 12);
   }, [imovel?.images, selectedFiles]);
 
   // Upload Cloudinary
@@ -47,14 +47,14 @@ const EditImovelPage = () => {
     try {
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/diyr0pljs/image/upload",
-        { method: "POST", body: formData }
+        { method: "POST", body: formData },
       );
       const data = await res.json();
 
       if (data.secure_url) {
         const optimizedUrl = data.secure_url.replace(
           "/upload/",
-          "/upload/f_auto,q_auto,w_1200/"
+          "/upload/f_auto,q_auto,w_1200/",
         );
         return optimizedUrl;
       }
@@ -72,7 +72,7 @@ const EditImovelPage = () => {
       let urls = [];
       if (selectedFiles.length > 0) {
         urls = await Promise.all(
-          selectedFiles.map((file) => handleUploadToCloudinary(file))
+          selectedFiles.map((file) => handleUploadToCloudinary(file)),
         );
       }
 
@@ -129,8 +129,8 @@ const EditImovelPage = () => {
 
     setSelectedFiles((prev) => {
       const combined = [...prev, ...files];
-      if ((imovel?.images?.length || 0) + combined.length > 4) {
-        return combined.slice(0, 4 - (imovel?.images?.length || 0));
+      if ((imovel?.images?.length || 0) + combined.length > 12) {
+        return combined.slice(0, 12 - (imovel?.images?.length || 0));
       }
       return combined;
     });

@@ -90,7 +90,7 @@ const Register = () => {
 
     const newFile = files[0];
     setSelectedFiles((prev) => {
-      if (prev.length < 4) {
+      if (prev.length < 12) {
         return [...prev, newFile];
       } else {
         const updated = [...prev];

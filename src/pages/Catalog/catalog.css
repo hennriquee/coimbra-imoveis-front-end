@@ -100,7 +100,7 @@
 
   .imoveis {
     justify-content: start;
-    gap: 3rem;
+    gap: 2rem;
     margin-top: 2rem;
   }
 }
