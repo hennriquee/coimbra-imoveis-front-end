@@ -70,13 +70,13 @@ const ImovelPage = () => {
       <p onClick={copyID} className="imovel__page__id">
         <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
       </p>
-      <div
-        className="imovel__images__container"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className="imovel__images__container">
         {imovel ? (
-          <div className="destaque__img">
+          <div
+            className="destaque__img"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <img src={imovel?.images?.[imageIdx] || "/placeholder.jpg"} />
           </div>
         ) : (
@@ -104,10 +104,10 @@ const ImovelPage = () => {
           {imovel?.category === "Apartamento"
             ? "🏢"
             : imovel?.category === "Casa"
-            ? "🏠"
-            : imovel?.category === "Terreno"
-            ? "🌳"
-            : ""}
+              ? "🏠"
+              : imovel?.category === "Terreno"
+                ? "🌳"
+                : ""}
         </h1>
         <p className="imovel__content__text">{imovel?.text}</p>
         <p className="imovel__content__price">{imovel?.price}</p>
