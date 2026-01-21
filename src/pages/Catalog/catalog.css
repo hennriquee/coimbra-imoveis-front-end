@@ -45,6 +45,12 @@
   margin-top: 5rem;
 }
 
+.catalog__search__form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 /* RESPONSIVE */
 @media (min-width: 0px) {
   /* .filter-main {

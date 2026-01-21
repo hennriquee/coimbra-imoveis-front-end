@@ -39,6 +39,7 @@ const Catalog = () => {
       <h1>Catálogo</h1>
 
       <form
+        className="catalog__search__form"
         onSubmit={(e) => {
           e.preventDefault();
           inputBuscaRef.current?.blur(); // fecha teclado no mobile
