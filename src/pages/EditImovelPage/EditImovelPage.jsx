@@ -25,6 +25,7 @@ const EditImovelPage = () => {
   const titleRef = useRef();
   const textRef = useRef();
   const priceRef = useRef();
+  const fileInputRef = useRef();
 
   // Busca do imóvel
   async function getImovel() {
@@ -97,6 +98,15 @@ const EditImovelPage = () => {
   const commitEdit = async (e) => {
     e.preventDefault();
 
+    const totalImages = (imovel?.images?.length || 0) + selectedFiles.length;
+
+    if (totalImages === 0) {
+      const confirmNoImage = confirm(
+        "Tem certeza que não irá adicionar fotos?",
+      );
+      if (!confirmNoImage) return;
+    }
+
     await toast.promise(handleEdit(), {
       loading: "Alterando...",
       success: <p>Alterações salvas!</p>,
@@ -135,6 +145,10 @@ const EditImovelPage = () => {
 
       return [...prev, croppedFile];
     });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
 
     setImageSrc(null);
     setTempFile(null);
@@ -226,10 +240,10 @@ const EditImovelPage = () => {
           )}
 
           <input
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             disabled={maxImages}
-            multiple
             onChange={handleFileAdd}
           />
 
