@@ -12,6 +12,7 @@ const Register = () => {
   const cityRef = useRef();
   const formRef = useRef();
   const priceRef = useRef();
+  const fileInputRef = useRef();
 
   //CROP IMAGE
   const [imageSrc, setImageSrc] = useState(null);
@@ -113,9 +114,21 @@ const Register = () => {
       return prev;
     });
 
+    // LIMPAR O INPUT AO CONFIRMAR O CROP
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
     setImageSrc(null);
     setTempFile(null);
   };
+
+  //LIMPAR INPUT DE IMAGENS AO REMOVER TODAS AS IMAGENS
+  useEffect(() => {
+    if (selectedFiles.length === 0 && fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [selectedFiles]);
 
   const handleSubmit = async () => {
     try {
@@ -165,14 +178,20 @@ const Register = () => {
   // Commit com toast.promise
   async function commitImovel(e) {
     e.preventDefault();
-    toast.promise(
-      handleSubmit(), // retorna a Promise do handleSubmit
-      {
-        loading: "Cadastrando...",
-        success: <p>Cadastro realizado!</p>,
-        error: <p>Erro ao cadastrar imóvel.</p>,
-      },
-    );
+
+    if (selectedFiles.length === 0) {
+      const confirmNoImage = confirm(
+        "Tem certeza que não irá adicionar fotos?",
+      );
+
+      if (!confirmNoImage) return;
+    }
+
+    toast.promise(handleSubmit(), {
+      loading: "Cadastrando...",
+      success: <p>Cadastro realizado!</p>,
+      error: <p>Erro ao cadastrar imóvel.</p>,
+    });
   }
 
   const togglePriceInput = () => {
@@ -277,7 +296,7 @@ const Register = () => {
               </div>
             )}
             <input
-              required
+              ref={fileInputRef}
               className="input__images"
               type="file"
               accept="image/*"
