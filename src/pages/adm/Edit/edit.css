@@ -27,7 +27,7 @@
 .edit__imovel__cards {
   margin-top: 2rem;
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   margin-bottom: 3rem;
 }
 
@@ -104,7 +104,7 @@
 
 @media (min-width: 992px) {
   .edit__main {
-    padding: 5rem 6rem;
+    padding: 5rem;
   }
   .edit__imovel__cards {
     justify-content: start;

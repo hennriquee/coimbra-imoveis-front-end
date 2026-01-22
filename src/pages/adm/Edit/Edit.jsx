@@ -115,6 +115,7 @@ const Edit = () => {
 
                 <div className="imovel__card__content">
                   <h5 className="imovel__card__category">{imovel.category}</h5>
+                  <p className="imovel__card__title">{`${imovel.title}`}</p>
                   <p className="imovel__card__state">{`${imovel.city}(${imovel.state})`}</p>
                   <hr />
                   <p className="price">{imovel.price ?? "R$ -"}</p>

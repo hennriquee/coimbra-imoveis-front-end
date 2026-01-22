@@ -122,7 +122,7 @@ const ImovelPage = () => {
 
       <div className="imovel__content__container">
         <h1 className="imovel__title">
-          {imovel?.title}{" "}
+          {imovel?.category}{" "}
           {imovel?.category === "Apartamento"
             ? "🏢"
             : imovel?.category === "Casa"
@@ -131,6 +131,9 @@ const ImovelPage = () => {
                 ? "🌳"
                 : ""}
         </h1>
+        <p className="imovel__content__bairro">
+          {imovel ? `◉ ${imovel?.title}` : ""}
+        </p>
         <div ref={textRef} className="imovel__content__text">
           {imovel?.text}
         </div>
