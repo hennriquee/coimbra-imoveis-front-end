@@ -31,13 +31,17 @@
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  padding: 0 0.6rem;
   overflow: auto;
 }
 
 .tiny__img {
   cursor: pointer;
-  min-width: 5rem;
+  min-width: 4.5rem;
   max-height: 3.6rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #0000003f;
+  overflow: hidden;
 
   & img {
     object-position: center;
@@ -46,8 +50,6 @@
     inset: 0;
     object-fit: cover;
     display: block;
-    border-radius: 10px;
-    box-shadow: 0 0 5px #0000003f;
     transition: all 0.1s ease;
   }
   & :hover {
@@ -56,7 +58,7 @@
 }
 
 .tiny__img.active {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .imovel__content__container {
@@ -234,7 +236,7 @@
 @media (min-width: 768px) {
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .imovel__page__main {
     flex-direction: row;
     padding: 8rem 5rem;
