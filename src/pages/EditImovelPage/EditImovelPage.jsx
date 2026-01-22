@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import ReturnBtn from "../../Components/ReturnBtn/ReturnBtn";
+import ImageCropModal from "../../Components/ImageCropModal";
 
 const EditImovelPage = () => {
   const { id } = useParams();
@@ -16,6 +17,10 @@ const EditImovelPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [removedImages, setRemovedImages] = useState([]);
   const [maxImages, setMaxImages] = useState(false);
+
+  //CROP IMAGE
+  const [imageSrc, setImageSrc] = useState(null);
+  const [tempFile, setTempFile] = useState(null);
 
   const titleRef = useRef();
   const textRef = useRef();
@@ -122,18 +127,31 @@ const EditImovelPage = () => {
     }
   };
 
-  // Adiciona novos arquivos
-  const handleFileAdd = (e) => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
-
+  const handleCropConfirm = (croppedFile) => {
     setSelectedFiles((prev) => {
-      const combined = [...prev, ...files];
-      if ((imovel?.images?.length || 0) + combined.length > 12) {
-        return combined.slice(0, 12 - (imovel?.images?.length || 0));
-      }
-      return combined;
+      const total = (imovel?.images?.length || 0) + prev.length;
+
+      if (total >= 12) return prev;
+
+      return [...prev, croppedFile];
     });
+
+    setImageSrc(null);
+    setTempFile(null);
+  };
+
+  // Adiciona novos arquivos
+  // Adiciona novos arquivos (com crop)
+  const handleFileAdd = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageSrc(reader.result);
+      setTempFile(file);
+    };
+    reader.readAsDataURL(file);
   };
 
   // Previews combinados
@@ -226,6 +244,17 @@ const EditImovelPage = () => {
           </div>
         </form>
       </div>
+      {imageSrc && tempFile && (
+        <ImageCropModal
+          imageSrc={imageSrc}
+          file={tempFile}
+          onCancel={() => {
+            setImageSrc(null);
+            setTempFile(null);
+          }}
+          onConfirm={handleCropConfirm}
+        />
+      )}
     </div>
   );
 };

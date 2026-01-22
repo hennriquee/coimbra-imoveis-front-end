@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./register.css";
 import { api } from "../../../services/api";
 import toast, { Toaster } from "react-hot-toast";
+import ImageCropModal from "../../../Components/ImageCropModal";
 
 const Register = () => {
   const categoryRef = useRef();
@@ -11,6 +12,10 @@ const Register = () => {
   const cityRef = useRef();
   const formRef = useRef();
   const priceRef = useRef();
+
+  //CROP IMAGE
+  const [imageSrc, setImageSrc] = useState(null);
+  const [tempFile, setTempFile] = useState(null);
 
   const [cities, setCities] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -85,23 +90,31 @@ const Register = () => {
 
   // Seleção de arquivos
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-    const newFile = files[0];
-    setSelectedFiles((prev) => {
-      if (prev.length < 12) {
-        return [...prev, newFile];
-      } else {
-        const updated = [...prev];
-        updated[updated.length - 1] = newFile;
-        return updated;
-      }
-    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageSrc(reader.result);
+      setTempFile(file);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleRemove = (index) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleCropConfirm = (croppedFile) => {
+    setSelectedFiles((prev) => {
+      if (prev.length < 12) {
+        return [...prev, croppedFile];
+      }
+      return prev;
+    });
+
+    setImageSrc(null);
+    setTempFile(null);
   };
 
   const handleSubmit = async () => {
@@ -274,6 +287,18 @@ const Register = () => {
           </div>
         </form>
       </div>
+
+      {imageSrc && tempFile && (
+        <ImageCropModal
+          imageSrc={imageSrc}
+          file={tempFile}
+          onCancel={() => {
+            setImageSrc(null);
+            setTempFile(null);
+          }}
+          onConfirm={handleCropConfirm}
+        />
+      )}
     </section>
   );
 };

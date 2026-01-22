@@ -22,6 +22,8 @@
 }
 
 .edit__container {
+  max-width: 100%;
+  margin-top: 2rem;
   width: 30rem;
   display: flex;
   border: 1px solid #000;
@@ -96,6 +98,8 @@
 
 .preview__container {
   display: flex;
+  width: 100%;
+  overflow: auto;
 }
 
 .remove__img__btn {
