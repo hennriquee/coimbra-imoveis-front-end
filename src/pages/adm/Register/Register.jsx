@@ -231,7 +231,6 @@ const Register = () => {
               placeholder="Título (Bairro)"
             />
             <textarea
-              maxLength={500}
               ref={textRef}
               rows={5}
               cols={50}

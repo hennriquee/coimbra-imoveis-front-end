@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./imovel-page.css";
 import { api } from "../../services/api";
 import { Link, useParams } from "react-router-dom";
@@ -12,6 +12,9 @@ const ImovelPage = () => {
   const [imovel, setImovel] = useState();
   const [imageIdx, setImageIdx] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
+  const textRef = useRef();
+  const [temMais, setTemMais] = useState(false);
+  const [expandido, setExpandido] = useState(false);
   const url = window.location.href;
 
   const getImovel = async () => {
@@ -21,6 +24,25 @@ const ImovelPage = () => {
   useEffect(() => {
     getImovel();
   }, []);
+
+  //LER MAIS
+  const handleReadMore = () => {
+    setTemMais((prev) => !prev);
+    setExpandido((prev) => {
+      const novoValor = !prev;
+      novoValor ? (textRef.current.style.minHeight = "15.05rem") : null;
+      textRef.current.style.overflow = novoValor ? "auto" : "hidden";
+      return novoValor;
+    });
+    priceRef.current.style.marginTop = "48px";
+  };
+
+  useEffect(() => {
+    if (textRef.current) {
+      // Verifica se o conteúdo do texto passa do tamanho visível
+      setTemMais(textRef.current.scrollHeight > textRef.current.clientHeight);
+    }
+  }, [imovel]);
 
   const changeImage = (idx) => {
     if (!imovel?.images) return;
@@ -109,7 +131,14 @@ const ImovelPage = () => {
                 ? "🌳"
                 : ""}
         </h1>
-        <p className="imovel__content__text">{imovel?.text}</p>
+        <div ref={textRef} className="imovel__content__text">
+          {imovel?.text}
+        </div>
+        {temMais && (
+          <p onClick={handleReadMore} className="read__more">
+            ...Ler mais
+          </p>
+        )}
         <p className="imovel__content__price">{imovel?.price}</p>
         {imovel && (
           <div className="imovel__page__btns">

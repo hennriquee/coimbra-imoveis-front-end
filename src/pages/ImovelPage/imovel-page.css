@@ -66,13 +66,32 @@
 }
 
 .imovel__content__text {
-  margin-top: 1rem;
+  border: 0;
+  padding: 0.5rem;
+  background: inherit;
   letter-spacing: 0.02rem;
   word-spacing: 0.15rem;
   line-height: 1.7rem;
-  text-indent: 30px;
   min-height: 12rem;
   font-size: 1rem;
+  color: #000;
+  scrollbar-width: thin;
+  overflow: hidden;
+  max-height: 10rem;
+  white-space: pre-line;
+  margin-bottom: 1rem;
+}
+
+.read__more {
+  display: flex;
+  justify-content: end;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-height: 2rem;
+  color: #000;
+  margin: auto;
+  width: 100%;
 }
 
 .imovel__content__price {

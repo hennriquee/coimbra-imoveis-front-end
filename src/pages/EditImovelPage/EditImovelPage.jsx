@@ -196,7 +196,6 @@ const EditImovelPage = () => {
               ref={textRef}
               defaultValue={imovel?.text}
               disabled={isLoading}
-              maxLength={500}
               rows={5}
             />
           </div>
