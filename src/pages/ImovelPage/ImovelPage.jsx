@@ -30,11 +30,10 @@ const ImovelPage = () => {
     setTemMais((prev) => !prev);
     setExpandido((prev) => {
       const novoValor = !prev;
-      novoValor ? (textRef.current.style.minHeight = "15.05rem") : null;
+      novoValor ? (textRef.current.style.minHeight = "15.08rem") : null;
       textRef.current.style.overflow = novoValor ? "auto" : "hidden";
       return novoValor;
     });
-    priceRef.current.style.marginTop = "48px";
   };
 
   useEffect(() => {
@@ -89,9 +88,11 @@ const ImovelPage = () => {
     <section className="imovel__page__main">
       <Toaster />
       <ReturnBtn />
-      <p onClick={copyID} className="imovel__page__id">
-        <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
-      </p>
+      {imovel && (
+        <p onClick={copyID} className="imovel__page__id">
+          <FontAwesomeIcon icon={faCopy} /> ID: {imovel?.id}
+        </p>
+      )}
       <div className="imovel__images__container">
         {imovel ? (
           <div
