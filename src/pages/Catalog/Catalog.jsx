@@ -12,7 +12,7 @@ const Catalog = () => {
   async function getImoveis() {
     try {
       const response = await api.get("/imoveis");
-      setImoveis(response.data);
+      setImoveis([...response.data].reverse());
     } finally {
       setLoading(false); // garante que o loading vai parar mesmo se der erro
     }

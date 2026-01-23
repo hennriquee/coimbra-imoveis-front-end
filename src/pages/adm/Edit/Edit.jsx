@@ -16,7 +16,8 @@ const Edit = () => {
   const formRef = useRef();
 
   async function getAllImoveis() {
-    setImoveis((await api.get("/imoveis")).data);
+    const allImoveis = await api.get("/imoveis");
+    setImoveis([...allImoveis.data].reverse());
   }
 
   useEffect(() => {
