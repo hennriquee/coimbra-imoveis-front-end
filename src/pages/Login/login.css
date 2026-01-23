@@ -47,7 +47,7 @@
   border-radius: 99999px;
   border: 0;
   margin: auto;
-  padding: 0.5rem 1.5rem;
+  padding: 0.8rem 2.5rem;
   background-color: #000;
   color: #fff;
   font-size: 1rem;
@@ -84,6 +84,11 @@
   .login__container {
     width: 100%;
   }
+
+  .login__main {
+    background-image: none;
+    background-color: #fff;
+  }
 }
 
 @media (min-width: 576px) {
@@ -101,6 +106,10 @@
 @media (min-width: 992px) {
   .login__container {
     width: 40%;
+  }
+
+  .login__main {
+    background-image: linear-gradient(to top, transparent, #000);
   }
 }
 
