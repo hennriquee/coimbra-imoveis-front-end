@@ -37,7 +37,6 @@
 }
 
 .catalog__input__busca {
-  max-width: 25rem;
   width: 100%;
 }
 
@@ -51,14 +50,26 @@
   width: 100%;
 }
 
+.filter__container {
+  display: flex;
+  width: 100%;
+  & > * {
+    flex: 1;
+    width: 100%;
+    max-width: 30rem;
+  }
+}
+
+.catalog__category__filter {
+  width: 100%;
+}
+
 /* RESPONSIVE */
 @media (min-width: 0px) {
-  /* .filter-main {
+  .filter__container {
     flex-direction: column;
-    & select {
-    width: 100%;
+    gap: 1rem;
   }
-  } */
 
   .imoveis {
     justify-content: center;
@@ -82,14 +93,10 @@
 }
 
 @media (min-width: 768px) {
-  /* .filter-main {
+  .filter__container {
     flex-direction: row;
     justify-content: space-evenly;
-
-    & select {
-    min-width: 20rem;
-}
-  } */
+  }
 
   .catalog__main {
     padding: 4rem 5rem;
@@ -99,13 +106,15 @@
   }
 
   .imoveis {
-    justify-content: start;
     gap: 2rem;
     margin-top: 2rem;
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1300px) {
+  .imoveis {
+    justify-content: start;
+  }
   .imovel__card {
     width: 13rem;
   }
