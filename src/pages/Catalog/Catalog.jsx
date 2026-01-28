@@ -8,6 +8,7 @@ const Catalog = () => {
   const [loading, setLoading] = useState(true); // estado de carregamento
   const [busca, setBusca] = useState("");
   const [filterCat, setFilterCat] = useState("");
+  const [order, setOrder] = useState("");
 
   async function getImoveis() {
     try {
@@ -29,23 +30,49 @@ const Catalog = () => {
       .replace(/[\u0300-\u036f]/g, "");
   }
 
+  //NUMERIZAR PRICE:
+  const parsePrice = (value) => {
+    if (!value) return 0;
+
+    return Number(
+      value
+        .replace(/\s/g, "") // remove espaços
+        .replace("R$", "") // remove moeda
+        .replace(/\./g, "") // remove milhares
+        .replace(",", "."), // troca decimal
+    );
+  };
+
   //BUSCA POR TITULO:
 
   const imoveisFiltrados = useMemo(() => {
     if (!imoveis) return [];
 
-    const lowerBusca = formatText(busca.toLowerCase());
+    const formatBusca = formatText(busca);
 
-    return imoveis.filter((imv) => {
-      const matchBusca = formatText(imv.title ?? "")
-        .toLowerCase()
-        .includes(lowerBusca);
-
+    let resultado = imoveis.filter((imv) => {
+      const matchBusca = formatText(imv.title ?? "").includes(formatBusca);
       const matchCategoria = filterCat === "" || imv.category === filterCat;
 
       return matchBusca && matchCategoria;
     });
-  }, [busca, imoveis, filterCat]);
+
+    if (order === "01") {
+      // menor → maior
+      resultado = [...resultado].sort(
+        (a, b) => parsePrice(a.price) - parsePrice(b.price),
+      );
+    }
+
+    if (order === "10") {
+      // maior → menor
+      resultado = [...resultado].sort(
+        (a, b) => parsePrice(b.price) - parsePrice(a.price),
+      );
+    }
+
+    return resultado;
+  }, [busca, imoveis, filterCat, order]);
 
   //FILTRO POR CATEGORIA:
 
@@ -86,6 +113,14 @@ const Catalog = () => {
               {cat}
             </option>
           ))}
+        </select>
+
+        <select value={order} onChange={(ev) => setOrder(ev.target.value)}>
+          <option value="" disabled>
+            Ordenar
+          </option>
+          <option value="01">Menor preço</option>
+          <option value="10">Maior preço</option>
         </select>
       </div>
 
